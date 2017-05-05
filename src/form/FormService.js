@@ -106,14 +106,15 @@ class FormService {
       };
     }
 
-    const data = {
+    const data = this._getData();
+
+    return {
       isLoaded,
-      fields: this._getFields(),
+      data,
+      fields: this._getFields(data),
       globalError: this._globalError,
       isSubmitting: this.isSubmitting
     };
-
-    return data;
   }
 
   /**
@@ -355,9 +356,8 @@ class FormService {
     }
   }
 
-  _getFields() {
+  _getFields(data) {
     const fields = this.fields;
-    const data = this._getData();
     const changes = this._getChangesFields();
     const errors = this._getValidationErrors();
     return fields.reduce((newFields, fieldName) => {
